@@ -1,20 +1,44 @@
-// Sorting algorithms.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
+#include <iomanip>
+
+int ile; //size of dynamic array to sort
+void fill_array(int* t, int n); //function for fill array by random values
+void print_array(int* t, int n);//function for show array
+
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	std::cout << "set array size: \n";
+	std::cin >> ile; 
+
+	int* tab; //create array
+	tab = new int[ile]; //reserve space for array
+
+	fill_array(tab, ile);
+	print_array(tab, ile);
+
+	delete[] tab; //memory release - delete first array
+
+	return 0;
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+void fill_array(int* t, int n)
+{
+	srand(time(nullptr));
+	for (int i = 0; i < n; i++)
+	{
+		t[i] = rand() % 10001;
+	}
+}
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+void print_array(int* t, int n)
+{
+	std:: cout<< "array:\n";
+	for (int i = 0; i < n; i++)
+	{
+		std::cout << std::setw(8);
+		std::cout << t[i];
+		if ((i + 1) % 10 == 0)
+			std::cout << "\n";
+	}
+}
