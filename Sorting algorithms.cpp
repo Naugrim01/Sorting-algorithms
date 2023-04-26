@@ -4,7 +4,9 @@
 
 int ile; //size of dynamic array to sort
 clock_t start, stop; //variables for time counting
+double sort_time = 0;
 
+double time_check(clock_t start, clock_t stop);
 void fill_array(int* t, int n); //function for fill array by random values
 void print_array(int* t, int n);//function for show array
 void copy_array(int* t, int* t2, int n);//fuction for copy array
@@ -24,14 +26,26 @@ int main()
 	tab2 = new int[ile];
 
 	fill_array(tab, ile);
-	print_array(tab,ile);
+	//print_array(tab,ile);
 	copy_array(tab, tab2, ile);
+
+	start = clock();
 	bubble_sort(tab2, ile);
-	print_array(tab2, ile);
+	stop = clock();
+	sort_time = time_check(start, stop);
+
+	std::cout << "bubble sort: \ntime: " << sort_time << '\n';
+
+	//print_array(tab2, ile);
 
 	delete[] tab; //memory release - delete first array
 
 	return 0;
+}
+
+double time_check(clock_t start, clock_t stop)
+{
+	return (static_cast<double>(stop - start) / CLOCKS_PER_SEC);
 }
 
 void fill_array(int* t, int n)
