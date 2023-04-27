@@ -4,7 +4,10 @@
 
 int ile; //size of dynamic array to sort
 clock_t start, stop; //variables for time counting
-double sort_time = 0;
+double bubble_time = 0;
+double select_time = 0;
+
+
 
 double time_check(clock_t start, clock_t stop);
 void fill_array(int* t, int n); //function for fill array by random values
@@ -13,6 +16,7 @@ void copy_array(int* t, int* t2, int n);//fuction for copy array
 
 //sorting functions:
 void bubble_sort(int* t, int n);
+void select_sort(int* t, int n);
 
 int main()
 {
@@ -32,14 +36,22 @@ int main()
 	start = clock();
 	bubble_sort(tab2, ile);
 	stop = clock();
-	sort_time = time_check(start, stop);
-
-	std::cout << "bubble sort: \ntime: " << sort_time << '\n';
+	bubble_time = time_check(start, stop);
+	std::cout << "bubble sort: \ntime: " << bubble_time << '\n';
+	//print_array(tab2, ile);
+	copy_array(tab, tab2, ile);
 
 	//print_array(tab2, ile);
 
-	delete[] tab; //memory release - delete first array
+	start = clock();
+	select_sort(tab2, ile);
+	stop = clock();
+	select_time = time_check(start, stop);
+	std::cout << "select sort: \ntime: " << select_time << '\n';
+	//print_array(tab2, ile);
 
+	delete[] tab; //memory release - delete first array
+	delete[] tab2;
 	return 0;
 }
 
@@ -87,4 +99,19 @@ void bubble_sort(int* t, int n)
 				t[j-1] = temporary;
 			}
 	
+}
+
+void select_sort(int* t, int n)
+{
+	int k, temporary;
+	for (int i = 0; i < n - 1; i++)
+	{
+		k = i;
+		for (int j = i + 1; j < n; j++)
+			if (t[j] < t[k]) k = j;
+
+		temporary = t[i];
+		t[i] = t[k];
+		t[k] = temporary;
+	}
 }
