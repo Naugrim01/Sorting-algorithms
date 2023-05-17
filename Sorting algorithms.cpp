@@ -1,14 +1,17 @@
 #include <iostream>
 #include <iomanip>
 #include <time.h>
+#include <string>
 
+//variables:
 int ile; //size of dynamic array to sort
 clock_t start, stop; //variables for time counting
 double bubble_time = 0;
 double select_time = 0;
 
+//functions:
 
-
+bool isRight(); // validation
 double time_check(clock_t start, clock_t stop);
 void fill_array(int* t, int n); //function for fill array by random values
 void print_array(int* t, int n);//function for show array
@@ -20,8 +23,12 @@ void select_sort(int* t, int n);
 
 int main()
 {
+	do{
+
 	std::cout << "set array size: \n";
-	std::cin >> ile; 
+	std::cin >> ile;
+		
+	}while (!isRight());
 
 	int* tab; //create array
 	tab = new int[ile]; //reserve space for array
@@ -53,6 +60,21 @@ int main()
 	delete[] tab; //memory release - delete first array
 	delete[] tab2;
 	return 0;
+}
+
+bool isRight()
+{
+	if (std::cin.rdstate())
+	{
+		std::cin.clear();
+		std::cin.ignore(1024, '\n');
+
+		system("cls");
+
+		return false;
+	}
+
+	return true;
 }
 
 double time_check(clock_t start, clock_t stop)
@@ -107,10 +129,10 @@ void select_sort(int* t, int n)
 	for (int i = 0; i < n - 1; i++)
 	{
 		k = i;
-		for (int j = i + 1; j < n; j++)
-			if (t[j] < t[k]) k = j;
+		for (int j = i + 1; j < n; j++)//internal loop
+			if (t[j] < t[k]) k = j;//select the smallest element in internal loop iteration
 
-		temporary = t[i];
+		temporary = t[i];  //swap instruction
 		t[i] = t[k];
 		t[k] = temporary;
 	}
