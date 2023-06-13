@@ -8,6 +8,7 @@ int ile; //size of dynamic array to sort
 clock_t start, stop; //variables for time counting
 double bubble_time = 0;
 double select_time = 0;
+double insert_time = 0;
 
 //functions:
 
@@ -20,6 +21,7 @@ void copy_array(int* t, int* t2, int n);//fuction for copy array
 //sorting functions:
 void bubble_sort(int* t, int n);
 void select_sort(int* t, int n);
+void insert_sort(int* t, int n);
 
 int main()
 {
@@ -28,7 +30,7 @@ int main()
 	std::cout << "set array size: \n";
 	std::cin >> ile;
 		
-	}while (!isRight());
+	}while (!isRight()); //validate
 
 	int* tab; //create array
 	tab = new int[ile]; //reserve space for array
@@ -38,8 +40,8 @@ int main()
 
 	fill_array(tab, ile);
 	//print_array(tab,ile);
+	
 	copy_array(tab, tab2, ile);
-
 	start = clock();
 	bubble_sort(tab2, ile);
 	stop = clock();
@@ -56,6 +58,14 @@ int main()
 	select_time = time_check(start, stop);
 	std::cout << "select sort: \ntime: " << select_time << '\n';
 	//print_array(tab2, ile);
+
+	copy_array(tab, tab2, ile);
+	start = clock();
+	insert_sort(tab2, ile);
+	stop = clock();
+	insert_time = time_check(start, stop);
+	std::cout << "insert sort: \ntime: " << insert_time << '\n';
+
 
 	delete[] tab; //memory release - delete first array
 	delete[] tab2;
@@ -79,7 +89,7 @@ bool isRight()
 
 double time_check(clock_t start, clock_t stop)
 {
-	return (static_cast<double>(stop - start) / CLOCKS_PER_SEC);
+	return (((static_cast<double>(stop)) - (static_cast<double>(start))) / CLOCKS_PER_SEC);
 }
 
 void fill_array(int* t, int n)
@@ -135,5 +145,21 @@ void select_sort(int* t, int n)
 		temporary = t[i];  //swap instruction
 		t[i] = t[k];
 		t[k] = temporary;
+	}
+}
+
+void insert_sort(int* t, int n)
+{
+	int x, i, j;
+	for (j = n - 2; j >= 0; j--)
+	{
+		x = t[j];
+		i = j + 1;
+		while ((i < n) && (x > t[i]))
+		{
+			t[i - 1] = t[i];
+			i++;
+		}
+		t[i - 1] = x;
 	}
 }
