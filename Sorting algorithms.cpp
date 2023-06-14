@@ -9,6 +9,7 @@ clock_t start, stop; //variables for time counting
 double bubble_time = 0;
 double select_time = 0;
 double insert_time = 0;
+double quick_time = 0;
 
 //functions:
 
@@ -22,6 +23,7 @@ void copy_array(int* t, int* t2, int n);//fuction for copy array
 void bubble_sort(int* t, int n);
 void select_sort(int* t, int n);
 void insert_sort(int* t, int n);
+void quick_sort(int* t, int l, int r);
 
 int main()
 {
@@ -64,11 +66,22 @@ int main()
 	insert_sort(tab2, ile);
 	stop = clock();
 	insert_time = time_check(start, stop);
+	//print_array(tab2, ile);
+	//print_array(tab, ile);
 	std::cout << "insert sort: \ntime: " << insert_time << '\n';
 
 
+	copy_array(tab, tab2, ile);
+	start = clock();
+	quick_sort(tab2, 0, ile - 1);
+	stop = clock();
+	quick_time = time_check(start, stop);
+	//print_array(tab2, ile);
+	//print_array(tab, ile);
+	std::cout << "quick sort: \ntime: " << quick_time << '\n';
+
 	delete[] tab; //memory release - delete first array
-	delete[] tab2;
+	delete[] tab2; //memory release - delete tmp array
 	return 0;
 }
 
@@ -150,16 +163,39 @@ void select_sort(int* t, int n)
 
 void insert_sort(int* t, int n)
 {
-	int x, i, j;
+	int x, i, j; //tmp values
 	for (j = n - 2; j >= 0; j--)
 	{
 		x = t[j];
 		i = j + 1;
-		while ((i < n) && (x > t[i]))
+		while ((i < n) && (x > t[i])) //moving on the array and checking elements
 		{
-			t[i - 1] = t[i];
+			t[i - 1] = t[i];//swap
 			i++;
 		}
-		t[i - 1] = x;
+		t[i - 1] = x; //swap
 	}
+}
+
+void quick_sort(int* t, int l, int r)
+{
+	int v = t[(l + r) / 2];
+	int i, j, x;
+	i = l;
+	j = r;
+	do
+	{
+		while (t[i] < v) i++;
+		while (t[j] > v) j--;
+		if (i <= j)
+		{
+			x = t[i];
+			t[i] = t[j];
+			t[j] = x;
+			i++;
+			j--;
+		}
+	} while (i <= j);
+	if (j > l) quick_sort(t, l, j);
+	if (i < r) quick_sort(t, i, r);
 }
