@@ -10,6 +10,7 @@ double bubble_time = 0;
 double select_time = 0;
 double insert_time = 0;
 double quick_time = 0;
+double merge_time = 0;
 
 //functions:
 
@@ -24,6 +25,8 @@ void bubble_sort(int* t, int n);
 void select_sort(int* t, int n);
 void insert_sort(int* t, int n);
 void quick_sort(int* t, int l, int r);
+void merge(int tab[], int start_tab, int middle_tab, int end_tab);//internal funcrion for merge sort
+void merge_sort(int tab[], int start_tab, int end_tab);
 
 int main()
 {
@@ -79,6 +82,15 @@ int main()
 	//print_array(tab2, ile);
 	//print_array(tab, ile);
 	std::cout << "quick sort: \ntime: " << quick_time << '\n';
+
+	copy_array(tab, tab2, ile);
+	start = clock();
+	merge_sort(tab2, 0, ile - 1);
+	stop = clock();
+	merge_time = time_check(start, stop);
+	//print_array(tab2, ile);
+	//print_array(tab, ile);
+	std::cout << "merge sort: \ntime: " << merge_time << '\n';
 
 	delete[] tab; //memory release - delete first array
 	delete[] tab2; //memory release - delete tmp array
@@ -198,4 +210,62 @@ void quick_sort(int* t, int l, int r)
 	} while (i <= j);
 	if (j > l) quick_sort(t, l, j);
 	if (i < r) quick_sort(t, i, r);
+}
+
+void merge(int tab[], int start_tab, int middle_tab, int end_tab)
+{
+	int* tmp_tab = new int[(end_tab - start_tab)]; //crerate tmp array
+	int i = start_tab, j = middle_tab + 1, k = 0; 
+
+	while (i <= middle_tab && j <= end_tab)
+	{
+		if (tab[j] < tab[i])
+		{
+			tmp_tab[k] = tab[j];
+			j++;
+		}
+		else
+		{
+			tmp_tab[k] = tab[i];
+			i++;
+		}
+		k++;
+	}
+
+	if (i <= middle_tab)
+	{
+		while (i <= middle_tab)
+		{
+			tmp_tab[k] = tab[i];
+			i++;
+			k++;
+		}
+	}
+	else
+	{
+		while (j <= end_tab)
+		{
+			tmp_tab[k] = tab[j];
+			j++;
+			k++;
+		}
+	}
+
+	for (i = 0; i <= end_tab - start_tab; i++)
+		tab[start_tab + i] = tmp_tab[i];
+
+
+}
+
+void merge_sort(int tab[], int start_tab, int end_tab)
+{
+	int middle_tab;
+
+	if (start_tab != end_tab)
+	{
+		middle_tab = (start_tab + end_tab) / 2;
+		merge_sort(tab, start_tab, middle_tab);
+		merge_sort(tab, middle_tab + 1, end_tab);
+		merge(tab, start_tab, middle_tab, end_tab);
+	}
 }
