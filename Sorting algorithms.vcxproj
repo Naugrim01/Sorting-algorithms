@@ -140,6 +140,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Sorting algorithms.cpp" />
+    <ClCompile Include="sorting_lib.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="sorting_lib.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -94,6 +94,7 @@ int main()
 
 	delete[] tab; //memory release - delete first array
 	delete[] tab2; //memory release - delete tmp array
+	system("pause");
 	return 0;
 }
 
