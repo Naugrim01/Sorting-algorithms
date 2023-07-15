@@ -1,3 +1,5 @@
-﻿  Sorting algorithms.cpp
-C:\Users\Laptop\source\repos\Sorting algorithms\Sorting algorithms.cpp(123,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+﻿  main.cpp
+  sorting_lib.cpp
+C:\Users\Laptop\source\repos\Sorting algorithms\sorting_lib.cpp(31,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Generating Code...
   Sorting algorithms.vcxproj -> C:\Users\Laptop\source\repos\Sorting algorithms\Debug\Sorting algorithms.exe

@@ -139,7 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Sorting algorithms.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="sorting_lib.cpp" />
   </ItemGroup>
   <ItemGroup>
